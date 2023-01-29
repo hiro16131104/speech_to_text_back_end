@@ -1,0 +1,52 @@
+{
+    "comment": "Flaskアプリの設定ファイル",
+    "environment": {
+        "comment": "本番環境は'production'、開発環境は'development'",
+        "value": "production"
+    },
+    "config": {
+        "comment": "Flaskインスタンスのconfig変数に代入する値",
+        "production": {
+            "comment": "'max_content_length'の単位はバイト",
+            "debug": false,
+            "testing": false,
+            "jsonAsAscii": false,
+            "maxContentLength": 52428800
+        },
+        "development": {
+            "debug": true,
+            "testing": false,
+            "jsonAsAscii": false,
+            "maxContentLength": 52428800
+        }
+    },
+    "dirPath": {
+        "audioFiles": "./assets/audio_files",
+        "csvFiles": "./assets/csv_files",
+        "model": "./learned_model"
+    },
+    "filePath": {
+        "fileList": "./assets/file_list.json"
+    },
+    "modelName": {
+        "comment": "whisperの学習モデル。'tiny'or'base'or'small'or'medium'or''or'large",
+        "production": "small",
+        "development": "small"
+    },
+    "parallelCount": {
+        "comment": "whisperを同時に実行する件数の上限",
+        "production": 2,
+        "development": 2
+    },
+    "mimeType": {
+        "audio": [
+            "audio/mpeg",
+            "audio/x-m4a",
+            "audio/aac",
+            "audio/wav",
+            "audio/webm",
+            "audio/ogg",
+            "audio/x-ms-wma"
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "comment": [
+        "音声ファイルの処理状況を管理するためのリスト",
+        "stateに設定できる値",
+        "・uploaded",
+        "・transcribing",
+        "・transcribed",
+        "・downloaded",
+        "・deleted"
+    ],
+    "data": [
+        {
+            "id": 1,
+            "date": "2023-01-27",
+            "fileName": "example.mp3",
+            "state": "deleted"
+        }
+    ]
+}
