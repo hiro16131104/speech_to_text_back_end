@@ -7,4 +7,6 @@ build:
       - pip install -r requirements.txt
       - pip install git+https://github.com/openai/whisper.git
 run:
-  command: flask run
+  command: python main.py
+  network:
+    port: 5000
