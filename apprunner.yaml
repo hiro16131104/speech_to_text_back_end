@@ -6,7 +6,6 @@ build:
       - pip install --upgrade pip
       - pip install -r requirements.txt
 run:
-  command:
-    - flask run
+  command: flask run
   network:
     port: 5000
