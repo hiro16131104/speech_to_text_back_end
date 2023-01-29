@@ -19,7 +19,6 @@ app = Flask(__name__)
 AppSetting.set_config(app, PATH_CONFIG_FILE)
 # サーバーを跨いでのリクエストを許可
 CORS(app)
-print(app.config)
 
 
 # postされた音声ファイルを保存
