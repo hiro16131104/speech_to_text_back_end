@@ -1,14 +1,9 @@
 # git管理から除外するファイル
-/__pycache__
 /.vscode
 /venv/bin
 /venv/include
 /venv/lib
 /venv/pyvenv.cfg
-/models/__pycache__
-/learned_model/large-v2.pt
-/learned_model/medium.pt
-/learned_model/small.pt
 /assets/audio_files/*
 /assets/csv_files/*
 *.mp3
@@ -17,3 +12,5 @@
 *.wav
 *.webm
 *.ogg
+*.pt
+__pycache__

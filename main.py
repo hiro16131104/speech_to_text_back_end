@@ -14,7 +14,7 @@ from models.file_list import FileList
 
 
 # 初期設定
-PATH_CONFIG_FILE = "./appconfig.json"
+PATH_CONFIG_FILE = "./config/appconfig.json"
 app = Flask(__name__)
 AppSetting.set_config(app, PATH_CONFIG_FILE)
 # サーバーを跨いでのリクエストを許可
