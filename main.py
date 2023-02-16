@@ -332,8 +332,8 @@ def get_state_transcription() -> Response:
 
 
 # apiの接続テスト用
-@app.route("/test", methods=["GET"])
-def test() -> Response:
+@app.route("/", methods=["GET"])
+def connection_test() -> Response:
     return "接続テストOK。このURLは有効です。"
 
 
@@ -364,7 +364,7 @@ def error_handler_others(error):
     }), 500
 
 
-# Flaskアプリの起動
-if __name__ == ("__main__"):
-    # localhost以外からのアクセスを許可
-    app.run(host="0.0.0.0", port=5000, threaded=True)
+# # Flaskアプリの起動
+# if __name__ == ("__main__"):
+#     # localhost以外からのアクセスを許可
+#     app.run(host="0.0.0.0", port=5050, threaded=True)

@@ -3,7 +3,7 @@
 # mainファイルのappインスタンス
 wsgi_app = "main:app"
 # ipアドレス+port番号
-# bind = "0.0.0.0:5000"
+bind = "0.0.0.0:5050"
 # 任意の名称
 proc_name = "infrastructure_flask"
 # ワーカースレッド数

@@ -1,5 +1,6 @@
-# git管理から除外するファイル
+# コンテナ内にコピーしないファイル
 /.vscode
+/.git
 /venv/*
 /assets/audio_files/*
 /assets/csv_files/*
