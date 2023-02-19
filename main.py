@@ -331,6 +331,21 @@ def get_state_transcription() -> Response:
     return make_response(jsonify(dict_result))
 
 
+# 'file_list.json'をダウンロード
+@app.route("/downloadFileList", methods=["GET"])
+def download_file_list() -> Response:
+    # 設定ファイルからfile_list.jsonのパスを取得
+    file_access = FileAccess(PATH_CONFIG_FILE)
+    file_access.read_json_file()
+
+    # クライアントへcsvファイルを送信
+    return send_file(
+        file_access.json_data["filePath"]["fileList"],
+        mimetype="application/json",
+        as_attachment=True
+    )
+
+
 # apiの接続テスト用
 @app.route("/", methods=["GET"])
 def connection_test() -> Response:
