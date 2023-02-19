@@ -11,13 +11,13 @@
             "debug": false,
             "testing": false,
             "jsonAsAscii": false,
-            "maxContentLength": 62914560
+            "maxContentLength": 20971520
         },
         "development": {
             "debug": true,
             "testing": false,
             "jsonAsAscii": false,
-            "maxContentLength": 62914560
+            "maxContentLength": 20971520
         }
     },
     "dirPath": {
@@ -35,8 +35,8 @@
     },
     "parallelCount": {
         "comment": "whisperを同時に実行する件数の上限",
-        "production": 2,
-        "development": 2
+        "production": 1,
+        "development": 1
     },
     "mimeType": {
         "audio": [
@@ -47,7 +47,7 @@
             "audio/webm",
             "audio/ogg",
             "audio/x-ms-wma",
-            "video/mp4"
+            "audio/mp4"
         ]
     }
 }
