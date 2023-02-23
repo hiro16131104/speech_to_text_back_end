@@ -3,6 +3,7 @@ import pandas as pd
 import csv
 import math
 import torch
+import gc
 
 
 # 音声ファイルからテキストを作成するためのクラス
@@ -25,26 +26,32 @@ class SpeechToText:
     # 文字起こし（cpuの場合）
     def __transcribe_cpu(
         self,
-        arg_model_name: str,
+        model_name: str,
         dir_path_model: str = None,
         language: str = None
     ) -> None:
-        # cpuの場合、学習モデルはmediumを上限とする
-        model_name = (
-            self.MEDIUM if arg_model_name == self.LARGE else arg_model_name
-        )
-        # モデルをcpuで読み込み
-        model = whisper.load_model(
-            model_name, "cpu", download_root=dir_path_model
-        )
-        # 音声からテキストへ変換
-        self.dict_result = model.transcribe(
-            self.file_path_audio,
-            language=language,
-            beam_size=5,
-            fp16=False,
-            without_timestamps=True
-        )
+
+        model = None
+
+        try:
+            # モデルをcpuで読み込み
+            model = whisper.load_model(
+                model_name, "cpu", download_root=dir_path_model
+            )
+            # 音声からテキストへ変換
+            self.dict_result = model.transcribe(
+                self.file_path_audio,
+                language=language,
+                beam_size=5,
+                fp16=False,
+                without_timestamps=True
+            )
+        except Exception:
+            raise
+        finally:
+            # メモリ解放
+            del model
+            gc.collect()
 
     # 文字起こし（gpuの場合）
     def __transcribe_cuda(
@@ -53,27 +60,37 @@ class SpeechToText:
         dir_path_model: str = None,
         language: str = None
     ) -> None:
-        # 重み情報をcpuで読み込み（gpuのメモリ節約）
-        model = whisper.load_model(
-            model_name, "cpu", download_root=dir_path_model
-        )
-        # モデルをfp32からfp16に変換し、gpuのメモリに配置する
-        _ = model.half()
-        _ = model.cuda()
 
-        # LayerNormの重みだけfp32にする（これをしないと例外が発生する）
-        for m in model.modules():
-            if isinstance(m, whisper.model.LayerNorm):
-                m.float()
+        model = None
 
-        # 音声からテキストへ変換
-        self.dict_result = model.transcribe(
-            self.file_path_audio,
-            language=language,
-            beam_size=5,
-            fp16=True,
-            without_timestamps=True
-        )
+        try:
+            # 重み情報をcpuで読み込み（gpuのメモリ節約）
+            model = whisper.load_model(
+                model_name, "cpu", download_root=dir_path_model
+            )
+            # モデルをfp32からfp16に変換し、gpuのメモリに配置する
+            _ = model.half()
+            _ = model.cuda()
+
+            # LayerNormの重みだけfp32にする（これをしないと例外が発生する）
+            for m in model.modules():
+                if isinstance(m, whisper.model.LayerNorm):
+                    m.float()
+
+            # 音声からテキストへ変換
+            self.dict_result = model.transcribe(
+                self.file_path_audio,
+                language=language,
+                beam_size=5,
+                fp16=True,
+                without_timestamps=True
+            )
+        except Exception:
+            raise
+        finally:
+            # メモリ解放
+            del model
+            gc.collect()
 
     # 文字起こし
     # learned_model（学習モデル）は、tiny,base,small,medium,largeの5種類
