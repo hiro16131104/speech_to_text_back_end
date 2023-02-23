@@ -379,6 +379,12 @@ def error_handler_others(error):
     }), 500
 
 
+# aws lambdaで実行する際に使用
+def lambda_handler(event, context):
+    import awsgi
+    return awsgi.response(app, event, context)
+
+
 # # Flaskアプリの起動
 # if __name__ == ("__main__"):
 #     # localhost以外からのアクセスを許可

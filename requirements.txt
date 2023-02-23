@@ -1,6 +1,8 @@
 async-generator==1.10
 attrs==22.1.0
 autopep8==1.6.0
+awsgi==0.0.5
+aws-wsgi==0.2.7
 beautifulsoup4==4.11.1
 black==22.12.0
 cachetools==5.0.0
@@ -14,9 +16,8 @@ Deprecated==1.2.13
 ffmpeg-python==0.2.0
 filelock==3.9.0
 flake8==6.0.0
-Flask==2.2.2
+Flask==2.2.3
 Flask-Cors==3.0.10
-Flask-DotEnv==0.1.2
 future==0.18.3
 google-api-core==2.7.3
 google-api-python-client==2.47.0
@@ -26,6 +27,7 @@ googleapis-common-protos==1.56.0
 gunicorn==20.1.0
 h11==0.13.0
 httplib2==0.20.4
+httptools==0.5.0
 huggingface-hub==0.12.0
 idna==3.3
 itsdangerous==2.1.2
@@ -62,6 +64,7 @@ regex==2022.10.31
 requests==2.28.1
 rich==12.5.1
 rsa==4.8
+simplejson==3.17.2
 six==1.16.0
 sniffio==1.2.0
 sortedcontainers==2.4.0
@@ -77,6 +80,8 @@ trio-websocket==0.9.2
 typing_extensions==4.3.0
 uritemplate==4.1.1
 urllib3==1.26.13
+uvloop==0.17.0
+websockets==10.4
 Werkzeug==2.2.2
 wrapt==1.14.1
 wsproto==1.1.0

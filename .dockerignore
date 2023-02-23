@@ -1,15 +1,16 @@
-# コンテナ内にコピーしないファイル
-/.vscode
-/.git
-/venv/*
-/assets/audio_files/*
-/assets/csv_files/*
-/shell_scripts/*
-*.mp3
-*.m4a
-*.aac
-*.wav
-*.webm
-*.ogg
-*.pt
-__pycache__
+# dockerイメージに含まないディレクトリ名及びファイル名
+.git
+.gitignore
+.vscode
+venv
+**/__pycache__
+shell_scripts/*
+**/*.mp3
+**/*.m4a
+**/*.aac
+**/*.wav
+**/*.webm
+**/*.ogg
+**/*.mp4
+**/*.csv
+**/*.pt
