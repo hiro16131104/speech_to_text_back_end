@@ -2,7 +2,7 @@
     "comment": "Flaskアプリの設定ファイル",
     "environment": {
         "comment": "本番環境は'production'、開発環境は'development'",
-        "value": "development"
+        "value": "production"
     },
     "config": {
         "comment": "Flaskインスタンスのconfig変数に代入する値",
@@ -36,7 +36,7 @@
     "parallelCount": {
         "comment": "whisperを同時に実行する件数の上限",
         "production": 1,
-        "development": 1
+        "development": 2
     },
     "mimeType": {
         "audio": [
