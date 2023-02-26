@@ -1,4 +1,3 @@
-import whisper
 import pandas as pd
 import csv
 import math
@@ -34,6 +33,7 @@ class SpeechToText:
         model = None
 
         try:
+            import whisper
             # モデルをcpuで読み込み
             model = whisper.load_model(
                 model_name, "cpu", download_root=dir_path_model
@@ -64,6 +64,7 @@ class SpeechToText:
         model = None
 
         try:
+            import whisper
             # 重み情報をcpuで読み込み（gpuのメモリ節約）
             model = whisper.load_model(
                 model_name, "cpu", download_root=dir_path_model

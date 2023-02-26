@@ -2,7 +2,7 @@
     "comment": "Flaskアプリの設定ファイル",
     "environment": {
         "comment": "本番環境は'production'、開発環境は'development'",
-        "value": "production"
+        "value": "development"
     },
     "config": {
         "comment": "Flaskインスタンスのconfig変数に代入する値",
@@ -11,13 +11,13 @@
             "debug": false,
             "testing": false,
             "jsonAsAscii": false,
-            "maxContentLength": 20971520
+            "maxContentLength": 5242880
         },
         "development": {
             "debug": true,
             "testing": false,
             "jsonAsAscii": false,
-            "maxContentLength": 20971520
+            "maxContentLength": 5242880
         }
     },
     "dirPath": {

@@ -17,4 +17,7 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+ENV PORT=5050
+EXPOSE 5050
+
 CMD ["gunicorn", "-c","config/gunicorn_setting.py"]

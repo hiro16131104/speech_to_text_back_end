@@ -1,5 +1,7 @@
 import os
 import time
+import gc
+import copy
 from datetime import datetime
 from flask import (
     Flask, request, make_response, jsonify, abort, Response, send_file
@@ -110,6 +112,7 @@ def transcribe() -> Response:
     file_path_csv = ""
     file_list = None
     file_access = FileAccess(PATH_CONFIG_FILE)
+    speech_to_text = None
 
     # 設定ファイルから音声ファイルとcsvファイルの保存ディレクトリを取得し、ファイルパスを作成
     file_access.read_json_file()
@@ -175,6 +178,9 @@ def transcribe() -> Response:
             "code": "Internal server error",
             "message": "予期せぬエラーが発生しました。"
         })
+    finally:
+        del speech_to_text
+        gc.collect()
 
 
 # 文字起こしのキャンセル（待機中のみ可）
@@ -264,19 +270,25 @@ def download_json() -> Response:
         file_name_csv.split("_")[0],
         file_name_csv
     )
+    try:
+        list_result = []
+        # csvファイルを読み込み、オブジェクトに戻す
+        speech_to_text = SpeechToText()
+        speech_to_text.convert_csv_to_obj(file_path_csv)
 
-    # csvファイルを読み込み、オブジェクトに戻す
-    speech_to_text = SpeechToText()
-    speech_to_text.convert_csv_to_obj(file_path_csv)
+        # 設定ファイルからfile_list.jsonのパスを取得
+        file_list = FileList(file_access.json_data["filePath"]["fileList"])
+        # file_list.jsonのstateを更新（ダウンロード完了）
+        file_list.update_state_in_item(file_list.DOWNLOADED, file_name_audio)
+        # finally説でインスタンスを破棄する前に、必要な情報のみディープコピー
+        list_result = copy.deepcopy(speech_to_text.list_segments)
 
-    # 設定ファイルからfile_list.jsonのパスを取得
-    file_list = FileList(file_access.json_data["filePath"]["fileList"])
-    # file_list.jsonのstateを更新（ダウンロード完了）
-    file_list.update_state_in_item(file_list.DOWNLOADED, file_name_audio)
-
-    return make_response(jsonify({
-        "segments": speech_to_text.list_segments
-    }))
+        return make_response(jsonify({"segments": list_result}))
+    except Exception:
+        raise
+    finally:
+        del speech_to_text
+        gc.collect()
 
 
 # 音声ファイルとcsvファイルを削除
